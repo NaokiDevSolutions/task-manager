@@ -25,9 +25,20 @@ def list_tasks():
     if not tasks:
         return "Nenhuma tarefa disponível."
     
-    return "\n".join([f"{task['id']}: {task["description"]}" for task in tasks])
+    return "\n".join([f"[{'✔' if task['completed'] else '✖'}] {task['id']}: {task["description"]}" for task in tasks])
+
+def complete_task(task_id):
+    tasks = load_tasks()
+    for task in tasks:
+        if task["id"] == task_id:
+            task["completed"] = True
+            save_tasks(tasks)
+            return f"tarefa '{task['description']}' marcada como concluída!"
+    return "Tarefa não encontrada."
 
 if __name__ == "__main__":
     print(add_task("Estudar Github"))
     print(add_task("Criar repositório"))
+    print(list_tasks())
+    print(complete_task(1))
     print(list_tasks())
