@@ -36,9 +36,16 @@ def complete_task(task_id):
             return f"tarefa '{task['description']}' marcada como concluída!"
     return "Tarefa não encontrada."
 
+def remove_task(taks_id):
+    tasks = load_tasks()
+    tasks = [task for task in tasks if task["id"] != taks_id]
+    save_tasks(tasks)
+    return f"Tarefa {taks_id} removida com sucesso!"
+
 if __name__ == "__main__":
     print(add_task("Estudar Github"))
     print(add_task("Criar repositório"))
     print(list_tasks())
     print(complete_task(1))
+    print(remove_task(2))
     print(list_tasks())
